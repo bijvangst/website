@@ -383,26 +383,45 @@
 
       <section id="aanbod" class="py-16 md:py-20 bg-slate-900/70 border-y border-white/5">
         <div class="max-w-6xl mx-auto px-4 space-y-8">
-          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 class="font-display text-3xl">Aanbod en prijzen</h2>
               <p class="text-slate-200/80">Betaalbare hardware + abonnement. Optioneel 4G voor afgelegen locaties.</p>
+              <span class="text-xs uppercase tracking-wide text-white/60 mt-2 inline-block">Alle prijzen incl. btw</span>
             </div>
-            <span class="text-xs uppercase tracking-wide text-white/60">Alle prijzen incl. btw</span>
+            <div class="relative flex justify-center">
+              <div class="absolute inset-0 bg-honey-500/20 blur-3xl rounded-full scale-75"></div>
+              <img src="images/device.png" alt="Bijvangst sensorkast" class="relative rounded-[40%] border-4 border-honey-500/30 shadow-2xl shadow-honey-500/20 w-64 h-64 object-cover hover:scale-105 transition-transform duration-500">
+            </div>
           </div>
 
           <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-              <p class="text-sm text-honey-100 font-semibold">Instrumenten</p>
-              <h3 class="mt-2 text-xl font-semibold">Kast hardware</h3>
+              <p class="text-sm text-honey-100 font-semibold">Hardware</p>
+              <h3 class="mt-2 text-xl font-semibold">WiFi versie</h3>
               <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>Basestation <span class="text-slate-400">(standard)</span> — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
-                <li>Sensor module <span class="text-slate-400">(standard)</span> — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
-                <li>Power module <span class="text-slate-400">(standard)</span> — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
+                <li>Basestation <span class="text-slate-400">(WiFi)</span> — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
+                <li>Sensor module — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
+                <li>Power module — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
                 <li>Weightscale <span class="text-slate-400">(optioneel)</span> — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
               </ul>
-              <p class="mt-4 text-sm text-honey-300 font-semibold">🎉 50% korting voor eerste 100 apparaten!</p>
-              <p class="text-sm text-slate-200/80">Modulair: kies wat je nodig hebt per kast.</p>
+              <p class="mt-4 text-sm text-honey-300 font-semibold">🎉 50% korting op de eerste 100 geleverde apparaten!</p>
+              <p class="text-sm text-slate-200/80">Ideaal als je WiFi bereik hebt bij de kast.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
+              <p class="text-sm text-sky-200 font-semibold">Hardware</p>
+              <h3 class="mt-2 text-xl font-semibold">4G versie</h3>
+              <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
+                <li>Basestation <span class="text-slate-400">(4G)</span> — <span class="line-through text-slate-400">€150</span> <span class="font-semibold text-honey-300">€75</span></li>
+                <li>Sensor module — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
+                <li>Power module — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span></li>
+                <li>Weightscale <span class="text-slate-400">(optioneel)</span> — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
+                <li class="pt-2 border-t border-white/10">4G verbinding — <span class="font-semibold text-honey-300">€25 per jaar</span></li>
+                <li>Extra verbinding — <span class="font-semibold text-honey-300">€12,50 per jaar</span> <span class="text-slate-400">(50%)</span></li>
+              </ul>
+              <p class="mt-4 text-sm text-honey-300 font-semibold">🎉 50% korting op de eerste 100 geleverde apparaten!</p>
+              <p class="text-sm text-slate-200/80">Voor locaties zonder WiFi bereik.</p>
             </div>
 
             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
@@ -414,26 +433,38 @@
                 <li>Realtime dashboards & alerts</li>
                 <li>Data‑export, open waar het kan</li>
               </ul>
-              <p class="mt-4 text-sm text-emerald-300 font-semibold">💡 Volume korting bij meerdere systemen</p>
+              <p class="mt-4 text-sm text-honey-300 font-semibold">🎉 Gratis voor de eerste 100 geleverde apparaten!</p>
+              <p class="mt-1 text-sm text-emerald-300 font-semibold">💡 Volume korting bij meerdere systemen</p>
               <p class="text-sm text-slate-200/80">Inclusief community voor kennisdeling.</p>
             </div>
+          </div>
 
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-              <p class="text-sm text-sky-200 font-semibold">Optioneel 4G</p>
-              <h3 class="mt-2 text-xl font-semibold">Connectiviteit</h3>
-              <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>4G station — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span> <span class="text-slate-400">(eerste 100)</span></li>
-                <li>4G verbinding — <span class="font-semibold text-honey-300">€25 per jaar</span></li>
-                <li>Extra verbinding — <span class="font-semibold text-honey-300">€12,50 per jaar</span> <span class="text-slate-400">(50%)</span></li>
-              </ul>
-              <p class="mt-4 text-sm text-emerald-300 font-semibold">💡 Volume korting bij meerdere verbindingen</p>
-              <p class="text-sm text-slate-200/80">Klaarzetten, aansluiten, data loopt.</p>
+          <div class="mt-12 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="font-display text-2xl mb-3">Bekijk de app</h3>
+              <p class="text-slate-200/80">Realtime dashboards, alerts en AI-inzichten. Altijd en overal toegang tot jouw bijendata via onze gebruiksvriendelijke interface.</p>
+            </div>
+            <div class="relative flex justify-center">
+              <div class="absolute inset-0 bg-sky-400/20 blur-3xl rounded-full scale-75"></div>
+              <img src="images/app.png" alt="Bijvangst app dashboard" class="relative rounded-3xl border-4 border-sky-400/30 shadow-2xl shadow-sky-400/20 w-80 object-contain hover:scale-105 transition-transform duration-500">
             </div>
           </div>
         </div>
       </section>
 
       <section id="stichting" class="py-16 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 mb-12">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="relative flex justify-center order-2 md:order-1">
+              <div class="absolute inset-0 bg-emerald-400/20 blur-3xl rounded-full scale-75"></div>
+              <img src="images/vereniging.jpeg" alt="Imkers community" class="relative rounded-[40%] border-4 border-emerald-400/30 shadow-2xl shadow-emerald-400/20 w-72 h-72 object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="order-1 md:order-2">
+              <h2 class="font-display text-3xl mb-4">Onze community</h2>
+              <p class="text-slate-200/80 text-lg">Samen met imkers, onderzoekers en natuurliefhebbers bouwen we aan een betere toekomst voor bijen en biodiversiteit.</p>
+            </div>
+          </div>
+        </div>
         <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-start">
           <div class="space-y-4">
             <h2 class="font-display text-3xl">Stichting Bijvangst</h2>
@@ -585,6 +616,7 @@
             <ul class="mt-2 space-y-1">
               <li>E-mail: <a class="underline" href="mailto:info@bijvangst.eu">info@bijvangst.eu</a></li>
               <li>Gemeente: Den Haag</li>
+              <li>KvK-nummer: 99726483</li>
               <li>Privacy: op aanvraag</li>
             </ul>
           </div>
