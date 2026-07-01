@@ -25,13 +25,20 @@
           },
           colors: {
             honey: {
-              50: '#fff8e1',
-              100: '#ffe8a3',
+              50: '#fffbeb',
+              100: '#fff3c4',
+              200: '#ffe485',
               300: '#ffd166',
-              500: '#ffb703',
-              600: '#f59e0b'
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309'
             },
-            forest: '#0f2f2f'
+            forest: {
+              500: '#1f7a5a',
+              600: '#166b4d',
+              700: '#0f5940'
+            }
           }
         }
       }
@@ -40,7 +47,7 @@
   <style>
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; }
-    
+
     /* Honeycomb base styles */
     .honeycomb {
       display: flex;
@@ -56,19 +63,15 @@
       margin-top: -35px;
     }
     .honeycomb-row:first-child { margin-top: 0; }
-    .honeycomb-row:nth-child(2) {
-      margin-left: -119px;
-    }
-    .honeycomb-row:nth-child(3) {
-      margin-left: -119px;
-    }
+    .honeycomb-row:nth-child(2) { margin-left: -119px; }
+    .honeycomb-row:nth-child(3) { margin-left: -119px; }
     .hex-tile {
       position: relative;
       width: 118px;
       height: 136px;
       flex-shrink: 0;
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      background: linear-gradient(145deg, rgba(255,183,3,0.65), rgba(255,215,0,0.45), rgba(245,158,11,0.5));
+      background: linear-gradient(145deg, #fbbf24, #f59e0b);
       cursor: pointer;
       transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0ms, filter 300ms ease;
       z-index: 1;
@@ -78,22 +81,16 @@
       position: absolute;
       inset: 3px;
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      background: linear-gradient(160deg, rgba(30,30,40,0.92), rgba(20,20,30,0.95));
+      background: linear-gradient(160deg, #fffdf7, #fff3c4);
       z-index: -1;
     }
-    .hex-tile:hover { transform: scale(1.1); z-index: 10; filter: brightness(1.15); }
-    .hex-tile.expanded {
-      transform: scale(2.8);
-      z-index: 200;
-      filter: brightness(1.2);
-    }
+    .hex-tile:hover { transform: scale(1.1); z-index: 10; filter: brightness(1.03); }
+    .hex-tile.expanded { transform: scale(2.8); z-index: 200; filter: brightness(1.02); }
     .hex-tile.filler {
-      background: linear-gradient(145deg, rgba(255,183,3,0.35), rgba(255,215,0,0.2));
+      background: linear-gradient(145deg, #ffe485, #fff3c4);
       cursor: default;
     }
-    .hex-tile.filler::before {
-      background: linear-gradient(160deg, rgba(30,30,40,0.7), rgba(20,20,30,0.75));
-    }
+    .hex-tile.filler::before { background: linear-gradient(160deg, #fffdf7, #fffbeb); }
     .hex-tile.filler:hover { transform: scale(1.02); filter: none; }
     .hex-tile .hex-content {
       display: flex;
@@ -120,7 +117,7 @@
       transition: opacity 200ms ease 150ms;
     }
     .hex-tile.expanded .hex-detail { opacity: 1; pointer-events: auto; }
-    /* Tablet breakpoint */
+
     @media (max-width: 768px) {
       .hex-tile { width: 90px; height: 104px; }
       .honeycomb-row { margin-top: -26px; }
@@ -130,14 +127,10 @@
       .hex-tile .hex-content span.text-2xl { font-size: 1.25rem; }
       .hex-tile .hex-content span.text-sm { font-size: 0.65rem; }
     }
-    
-    /* Small tablet / large phone */
     @media (max-width: 640px) {
       .honeycomb { transform: scale(0.85); transform-origin: center top; }
       .hex-tile.expanded { transform: scale(2.6); }
     }
-    
-    /* Phone breakpoint - switch to vertical list layout */
     @media (max-width: 480px) {
       .honeycomb {
         display: grid;
@@ -147,57 +140,37 @@
         padding: 10px;
         transform: none;
       }
-      .honeycomb-row {
-        display: contents;
-        margin: 0 !important;
-      }
+      .honeycomb-row { display: contents; margin: 0 !important; }
       .hex-tile {
         width: 100%;
         height: auto;
         aspect-ratio: 1;
         clip-path: none;
         border-radius: 16px;
-        background: linear-gradient(145deg, rgba(255,183,3,0.5), rgba(255,215,0,0.3));
+        background: linear-gradient(145deg, #fbbf24, #ffd166);
       }
-      .hex-tile::before {
-        clip-path: none;
-        border-radius: 14px;
-        inset: 2px;
-      }
-      .hex-tile .hex-content {
-        padding: 12px 8px;
-      }
+      .hex-tile::before { clip-path: none; border-radius: 14px; inset: 2px; }
+      .hex-tile .hex-content { padding: 12px 8px; }
       .hex-tile .hex-content span.text-2xl { font-size: 1.5rem; }
       .hex-tile .hex-content span.text-sm,
       .hex-tile .hex-content span.font-semibold { font-size: 0.75rem; line-height: 1.2; }
       .hex-tile.filler { display: none; }
       .hex-tile:hover { transform: scale(1.02); }
-      .hex-tile.expanded { 
-        transform: none;
-        position: relative;
-        z-index: 10;
-      }
+      .hex-tile.expanded { transform: none; position: relative; z-index: 10; }
       .hex-tile.expanded .hex-content { opacity: 1; pointer-events: auto; }
-      .hex-tile.expanded .hex-detail { 
+      .hex-tile.expanded .hex-detail {
         position: relative;
-        opacity: 1; 
+        opacity: 1;
         padding: 8px;
-        background: rgba(0,0,0,0.5);
+        background: rgba(180,83,9,0.08);
         border-radius: 0 0 14px 14px;
         margin-top: -4px;
       }
       .hex-tile .hex-detail span.text-\[10px\] { font-size: 0.7rem; }
     }
-    
-    /* Extra small phones */
     @media (max-width: 360px) {
-      .honeycomb {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
+      .honeycomb { grid-template-columns: repeat(2, 1fr); gap: 8px; }
     }
-    
-    /* Mobile typography improvements */
     @media (max-width: 640px) {
       h1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
       h2 { font-size: 1.5rem !important; }
@@ -205,46 +178,46 @@
       .text-lg { font-size: 1rem !important; }
       .text-sm { font-size: 0.875rem !important; }
     }
-    
-    /* Ensure touch targets are large enough on mobile */
     @media (max-width: 768px) {
       .hex-tile { min-height: 80px; }
       a, button { min-height: 44px; }
     }
   </style>
 </head>
-<body class="antialiased font-body bg-slate-950 text-slate-100">
+<body class="antialiased font-body bg-honey-50 text-slate-800">
   <div class="relative overflow-hidden">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,183,3,0.12),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.15),transparent_30%),radial-gradient(circle_at_60%_70%,rgba(255,255,255,0.08),transparent_35%)]"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,158,11,0.12),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(31,122,90,0.10),transparent_32%),radial-gradient(circle_at_60%_75%,rgba(255,209,102,0.14),transparent_35%)]"></div>
 
-    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur border-b border-white/10">
+    <header class="sticky top-0 z-40 bg-honey-50/85 backdrop-blur border-b border-honey-200">
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
-          <a href="#home" class="flex items-center gap-2 font-semibold text-white">
+          <a href="#home" class="flex items-center gap-2 font-semibold text-slate-900">
             <img src="images/logo.png" alt="Bijvangst logo" class="h-10 w-10">
             <span class="font-display">Stichting Bijvangst</span>
           </a>
-          <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-            <a href="#home" class="hover:text-white">Home</a>
-            <a href="#meedoen" class="hover:text-white">Meedoen</a>
-            <a href="#stichting" class="hover:text-white">Stichting</a>
-            <a href="#aanpak" class="hover:text-white">Aanpak</a>
-            <a href="#contact" class="hover:text-white">Contact</a>
+          <nav class="hidden md:flex items-center gap-6 text-sm text-slate-600">
+            <a href="#home" class="hover:text-slate-900">Home</a>
+            <a href="#meedoen" class="hover:text-slate-900">Meedoen</a>
+            <a href="#prijzen" class="hover:text-slate-900">Prijzen</a>
+            <a href="#stichting" class="hover:text-slate-900">Stichting</a>
+            <a href="#aanpak" class="hover:text-slate-900">Aanpak</a>
+            <a href="#contact" class="hover:text-slate-900">Contact</a>
           </nav>
           <div class="hidden md:block">
-            <a href="#contact" class="inline-flex items-center rounded-full px-4 py-2 bg-honey-500 text-white font-medium shadow-lg shadow-amber-500/30 hover:bg-honey-600 transition">Plan een gesprek</a>
+            <a href="#contact" class="inline-flex items-center rounded-full px-4 py-2 bg-honey-500 text-white font-medium shadow-lg shadow-amber-500/25 hover:bg-honey-600 transition">Plan een gesprek</a>
           </div>
-          <button id="navBtn" class="md:hidden p-2 text-white" aria-label="Open navigatie">
+          <button id="navBtn" class="md:hidden p-2 text-slate-800" aria-label="Open navigatie">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M3.75 6.75h16.5v1.5H3.75zM3.75 11.25h16.5v1.5H3.75zM3.75 15.75h16.5v1.5H3.75z"/></svg>
           </button>
         </div>
         <nav id="mobileNav" class="md:hidden hidden pb-4">
-          <div class="flex flex-col gap-2 text-sm text-white">
-            <a href="#home" class="px-3 py-2 rounded hover:bg-white/5">Home</a>
-            <a href="#meedoen" class="px-3 py-2 rounded hover:bg-white/5">Meedoen</a>
-            <a href="#stichting" class="px-3 py-2 rounded hover:bg-white/5">Stichting</a>
-            <a href="#aanpak" class="px-3 py-2 rounded hover:bg-white/5">Aanpak</a>
-            <a href="#contact" class="px-3 py-2 rounded hover:bg-white/5">Contact</a>
+          <div class="flex flex-col gap-2 text-sm text-slate-700">
+            <a href="#home" class="px-3 py-2 rounded hover:bg-honey-100">Home</a>
+            <a href="#meedoen" class="px-3 py-2 rounded hover:bg-honey-100">Meedoen</a>
+            <a href="#prijzen" class="px-3 py-2 rounded hover:bg-honey-100">Prijzen</a>
+            <a href="#stichting" class="px-3 py-2 rounded hover:bg-honey-100">Stichting</a>
+            <a href="#aanpak" class="px-3 py-2 rounded hover:bg-honey-100">Aanpak</a>
+            <a href="#contact" class="px-3 py-2 rounded hover:bg-honey-100">Contact</a>
           </div>
         </nav>
       </div>
@@ -254,31 +227,31 @@
       <section id="home" class="pt-16 md:pt-20 pb-16 md:pb-20">
         <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
           <div class="space-y-4 sm:space-y-6">
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Nieuwe stichting · Den Haag</span>
-            <h1 class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">Datagedreven zorg voor bijenvolken met hardware, 4G en AI‑inzichten</h1>
-            <p class="text-base sm:text-lg text-slate-200/80 leading-relaxed">Stichting Bijvangst versterkt duurzame bijenhouderij en biodiversiteit. We leveren sensorkastjes, betaalbare stations en een AI‑platform dat realtime data omzet naar bruikbare kennis voor imkers, onderzoekers en overheden.</p>
+            <span class="inline-flex items-center gap-2 rounded-full bg-honey-100 border border-honey-200 px-3 py-1 text-xs font-semibold text-honey-700">Nieuwe stichting · Den Haag</span>
+            <h1 class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight text-slate-900">Datagedreven zorg voor bijenvolken met hardware, connectiviteit en AI‑inzichten</h1>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed">Stichting Bijvangst versterkt duurzame bijenhouderij en biodiversiteit. We leveren een sensorkast met sensornode en solarnode voor in het kastdeksel, een optionele weegschaal en een AI‑platform dat realtime data omzet naar bruikbare kennis voor imkers, onderzoekers en overheden.</p>
             <div class="flex flex-wrap gap-3">
-              <a href="#meedoen" class="inline-flex items-center rounded-full px-5 py-3 bg-honey-500 text-white font-semibold shadow-lg shadow-amber-500/30 hover:bg-honey-600 transition">Doe mee</a>
-              <a href="#contact" class="inline-flex items-center rounded-full px-5 py-3 border border-white/30 text-white hover:bg-white/5 transition">Plan een gesprek</a>
+              <a href="#prijzen" class="inline-flex items-center rounded-full px-5 py-3 bg-honey-500 text-white font-semibold shadow-lg shadow-amber-500/25 hover:bg-honey-600 transition">Bekijk prijzen</a>
+              <a href="#contact" class="inline-flex items-center rounded-full px-5 py-3 border border-slate-300 text-slate-700 hover:bg-white transition">Plan een gesprek</a>
             </div>
-            <div class="grid grid-cols-2 gap-4 text-sm text-slate-200/80">
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">Sensorkastjes & realtime data</div>
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">Citizen‑science onderzoek</div>
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">AI‑platform met alerts</div>
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">Community voor kennisdeling</div>
+            <div class="grid grid-cols-2 gap-4 text-sm text-slate-600">
+              <div class="p-4 rounded-2xl bg-white border border-honey-200 shadow-sm">Sensorkast met solarnode in het deksel</div>
+              <div class="p-4 rounded-2xl bg-white border border-honey-200 shadow-sm">Optionele weegschaal</div>
+              <div class="p-4 rounded-2xl bg-white border border-honey-200 shadow-sm">WiFi of NB‑IoT verbinding</div>
+              <div class="p-4 rounded-2xl bg-white border border-honey-200 shadow-sm">AI‑platform met alerts</div>
             </div>
           </div>
 
           <div class="relative">
-            <div class="absolute -left-6 -top-6 h-24 w-24 rounded-full bg-honey-500/20 blur-3xl"></div>
-            <div class="absolute right-10 -bottom-10 h-28 w-28 rounded-full bg-emerald-400/20 blur-3xl"></div>
-            <div class="rounded-3xl bg-white/5 border border-white/10 p-4 sm:p-6 shadow-2xl backdrop-blur">
+            <div class="absolute -left-6 -top-6 h-24 w-24 rounded-full bg-honey-300/40 blur-3xl"></div>
+            <div class="absolute right-10 -bottom-10 h-28 w-28 rounded-full bg-forest-500/20 blur-3xl"></div>
+            <div class="rounded-3xl bg-white border border-honey-200 p-4 sm:p-6 shadow-2xl shadow-amber-500/10 backdrop-blur">
               <div class="flex justify-between items-center mb-4">
                 <div>
-                  <p class="text-sm text-slate-200/70">Hexboard</p>
-                  <p class="text-base sm:text-lg font-semibold text-white">Klik op een tegel</p>
+                  <p class="text-sm text-slate-500">Hexboard</p>
+                  <p class="text-base sm:text-lg font-semibold text-slate-900">Klik op een tegel</p>
                 </div>
-                <span class="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10 text-white">8 modules</span>
+                <span class="text-xs px-2 sm:px-3 py-1 rounded-full bg-honey-100 text-honey-700 border border-honey-200">8 modules</span>
               </div>
               <div class="honeycomb">
                 <div class="honeycomb-row">
@@ -286,31 +259,31 @@
                   <div class="hex-tile" data-title="Slimme Kast" data-body="Metingen elke 10 minuten">
                     <div class="hex-content">
                       <span class="text-2xl">📡</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Slimme Kast</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Slimme Kast</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">📡</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Metingen elke 10 minuten</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Metingen elke 10 minuten</span>
                     </div>
                   </div>
                   <div class="hex-tile" data-title="AI Analyse" data-body="Continue live analyses">
                     <div class="hex-content">
                       <span class="text-2xl">🤖</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">AI Analyse</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">AI Analyse</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🤖</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Continue live analyses</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Continue live analyses</span>
                     </div>
                   </div>
                   <div class="hex-tile" data-title="Imker" data-body="Digitaal kastbeheer">
                     <div class="hex-content">
                       <span class="text-2xl">🧑‍🌾</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Imker</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Imker</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🧑‍🌾</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Digitaal kastbeheer</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Digitaal kastbeheer</span>
                     </div>
                   </div>
                   <div class="hex-tile filler"><div class="hex-content"></div></div>
@@ -319,33 +292,33 @@
                   <div class="hex-tile" data-title="Educatie" data-body="Lessen op scholen">
                     <div class="hex-content">
                       <span class="text-2xl">🎓</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Educatie</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Educatie</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🎓</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Lessen op scholen</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Lessen op scholen</span>
                     </div>
                   </div>
                   <div class="hex-tile filler"><div class="hex-content"></div></div>
                   <div class="hex-tile" data-title="Open Data" data-body="Download alle data">
                     <div class="hex-content">
                       <span class="text-2xl">📊</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Open Data</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Open Data</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">📊</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Download alle data</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Download alle data</span>
                     </div>
                   </div>
                   <div class="hex-tile filler"><div class="hex-content"></div></div>
                   <div class="hex-tile" data-title="Overheid" data-body="Ondersteuning beleidsbeslissingen">
                     <div class="hex-content">
                       <span class="text-2xl">🏛️</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Overheid</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Overheid</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🏛️</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Ondersteuning beleidsbeslissingen</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Ondersteuning beleidsbeslissingen</span>
                     </div>
                   </div>
                 </div>
@@ -354,134 +327,236 @@
                   <div class="hex-tile" data-title="Onderzoek" data-body="Samenwerking met wetenschap">
                     <div class="hex-content">
                       <span class="text-2xl">🔬</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Onderzoek</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Onderzoek</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🔬</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Samenwerking met wetenschap</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Samenwerking met wetenschap</span>
                     </div>
                   </div>
                   <div class="hex-tile" data-title="Mentor" data-body="Begeleiding in de imker-app">
                     <div class="hex-content">
                       <span class="text-2xl">🤝</span>
-                      <span class="font-semibold text-white text-sm leading-tight mt-1">Mentor</span>
+                      <span class="font-semibold text-slate-900 text-sm leading-tight mt-1">Mentor</span>
                     </div>
                     <div class="hex-detail">
                       <span class="text-xl">🤝</span>
-                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Begeleiding in de imker-app</span>
+                      <span class="text-[10px] text-slate-800 leading-tight px-1 mt-1">Begeleiding in de imker-app</span>
                     </div>
                   </div>
                   <div class="hex-tile filler"><div class="hex-content"></div></div>
                 </div>
               </div>
-              <p class="text-center text-xs text-honey-300 mt-4 font-semibold hidden sm:block">🐝 Klik op een tegel voor meer informatie</p>
-              <p class="text-center text-xs text-honey-300 mt-4 font-semibold sm:hidden">🐝 Tik op een tegel voor info</p>
+              <p class="text-center text-xs text-honey-700 mt-4 font-semibold hidden sm:block">🐝 Klik op een tegel voor meer informatie</p>
+              <p class="text-center text-xs text-honey-700 mt-4 font-semibold sm:hidden">🐝 Tik op een tegel voor info</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="meedoen" class="py-16 md:py-20 bg-slate-900/70 border-y border-white/5">
+      <section id="meedoen" class="py-16 md:py-20 bg-white border-y border-honey-200">
         <div class="max-w-6xl mx-auto px-4 space-y-8">
           <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 class="font-display text-3xl">Doe mee met het onderzoek</h2>
-              <p class="text-slate-200/80 text-lg mt-3">Stichting Bijvangst is een community‑project. Door bij te dragen ontvang je een sensorkastje en word je onderdeel van een groeiend netwerk van imkers en onderzoekers.</p>
+              <h2 class="font-display text-3xl text-slate-900">Doe mee met het onderzoek</h2>
+              <p class="text-slate-600 text-lg mt-3">Stichting Bijvangst is een community‑project. Met een sensorkast in je bijenkast word je onderdeel van een groeiend netwerk van imkers en onderzoekers, en krijg je realtime inzicht in je eigen volk.</p>
             </div>
             <div class="relative flex justify-center">
-              <div class="absolute inset-0 bg-honey-500/20 blur-3xl rounded-full scale-75"></div>
-              <img src="images/device.png" alt="Bijvangst sensorkast" class="relative rounded-[40%] border-4 border-honey-500/30 shadow-2xl shadow-honey-500/20 w-64 h-64 object-cover hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-honey-300/30 blur-3xl rounded-full scale-75"></div>
+              <img src="images/device.png" alt="Bijvangst sensorkast" class="relative rounded-[40%] border-4 border-honey-300/60 shadow-2xl shadow-honey-500/15 w-64 h-64 object-cover hover:scale-105 transition-transform duration-500">
             </div>
           </div>
 
-          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-              <p class="text-sm text-honey-100 font-semibold">Bijdrage</p>
-              <h3 class="mt-2 text-xl font-semibold">€100 eenmalig</h3>
-              <p class="mt-4 text-sm text-slate-200/80">Met een bijdrage van €100 ontvang je een compleet sensorkastje en draag je bij aan citizen‑science onderzoek naar bijenvolken.</p>
-              <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>✓ Sensorkastje (hardware)</li>
-                <li>✓ Toegang tot het dataplatform</li>
-                <li>✓ Realtime inzicht in jouw bijenkast</li>
-                <li>✓ Deel van de onderzoekscommunity</li>
-              </ul>
-            </div>
-
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-              <p class="text-sm text-emerald-200 font-semibold">Community</p>
-              <h3 class="mt-2 text-xl font-semibold">Samen leren</h3>
-              <p class="mt-4 text-sm text-slate-200/80">Alle data wordt gedeeld met de community. Samen bouwen we aan kennis over bijenvolken, gezondheid en biodiversiteit.</p>
-              <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>🐝 Kennisdeling tussen imkers</li>
-                <li>🔬 Bijdragen aan wetenschappelijk onderzoek</li>
-                <li>📊 Open data voor iedereen</li>
-                <li>🤝 Begeleiding door ervaren imkers</li>
-              </ul>
-            </div>
-
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
-              <p class="text-sm text-sky-200 font-semibold">Platform</p>
-              <h3 class="mt-2 text-xl font-semibold">Data & AI</h3>
-              <p class="mt-4 text-sm text-slate-200/80">Als deelnemer krijg je toegang tot ons AI‑platform met realtime dashboards, alerts en inzichten over jouw bijenvolk.</p>
-              <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>📱 Realtime dashboards & alerts</li>
-                <li>🤖 AI‑analyse van jouw data</li>
-                <li>📈 Trends en patronen</li>
-                <li>💡 Handelingsadvies</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mt-12 grid md:grid-cols-2 gap-8 items-center">
+          <div class="mt-6 grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 class="font-display text-2xl mb-3">Bekijk de app</h3>
-              <p class="text-slate-200/80">Realtime dashboards, alerts en AI-inzichten. Altijd en overal toegang tot jouw bijendata via onze gebruiksvriendelijke interface.</p>
+              <h3 class="font-display text-2xl mb-3 text-slate-900">Bekijk de app</h3>
+              <p class="text-slate-600">Realtime dashboards, alerts en AI‑inzichten. Volg je kast, vergelijk met andere kasten en ontvang meldingen — altijd en overal via onze gebruiksvriendelijke app.</p>
             </div>
             <div class="relative flex justify-center">
-              <div class="absolute inset-0 bg-sky-400/20 blur-3xl rounded-full scale-75"></div>
-              <img src="images/app.png" alt="Bijvangst app dashboard" class="relative rounded-3xl border-4 border-sky-400/30 shadow-2xl shadow-sky-400/20 w-80 object-contain hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-forest-500/15 blur-3xl rounded-full scale-75"></div>
+              <img src="images/app.png" alt="Bijvangst app dashboard" class="relative rounded-3xl border-4 border-forest-500/25 shadow-2xl shadow-forest-500/15 w-80 object-contain hover:scale-105 transition-transform duration-500">
             </div>
           </div>
         </div>
       </section>
 
-      <section id="stichting" class="py-16 md:py-20">
+      <section id="prijzen" class="py-16 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 space-y-10">
+          <div class="max-w-3xl">
+            <span class="inline-flex items-center gap-2 rounded-full bg-forest-500/10 border border-forest-500/20 px-3 py-1 text-xs font-semibold text-forest-700">Transparante prijzen</span>
+            <h2 class="font-display text-3xl mt-3 text-slate-900">Wat kost meedoen?</h2>
+            <p class="text-slate-600 text-lg mt-3">Je betaalt eenmalig voor de hardware en een klein jaarlijks bedrag voor het platform. De verbinding kies je zelf: gratis via je eigen WiFi, of via NB‑IoT voor locaties zonder internet.</p>
+          </div>
+
+          <!-- Hardware -->
+          <div>
+            <h3 class="font-display text-xl mb-4 text-slate-900">1. Hardware — eenmalig</h3>
+            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="relative p-6 rounded-2xl bg-white border-2 border-honey-400 shadow-lg">
+                <div class="absolute -top-3 left-6 inline-flex items-center rounded-full bg-honey-500 px-3 py-1 text-xs font-bold text-white shadow">Eerste 100 kasten: €50 korting</div>
+                <p class="text-sm text-honey-700 font-semibold mt-2">Hoofdapparaat</p>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">€150</h4>
+                  <span class="text-sm text-slate-500">eenmalig</span>
+                </div>
+                <p class="mt-1 text-sm font-semibold text-forest-700">Nu €100 voor de eerste 100 deelnemers</p>
+                <p class="mt-4 text-sm text-slate-600">Het hoofdapparaat met sensornode en solarnode, te bouwen in het deksel van je bijenkast.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Sensornode voor metingen in de kast</li>
+                  <li>✓ Solarnode voor energie‑autonome werking</li>
+                  <li>✓ Past in het deksel van de kast</li>
+                  <li>✓ Toegang tot het dataplatform</li>
+                </ul>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white border border-honey-200 shadow-lg">
+                <p class="text-sm text-slate-500 font-semibold">Uitbreiding</p>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">+€100</h4>
+                  <span class="text-sm text-slate-500">eenmalig</span>
+                </div>
+                <p class="mt-1 text-sm font-semibold text-slate-500">Weegschaal (optioneel)</p>
+                <p class="mt-4 text-sm text-slate-600">Een losse weegschaal die je koppelt aan het hoofdapparaat om ook het gewicht van je volk door te sturen.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Koppelt aan het hoofdapparaat</li>
+                  <li>✓ Volg dracht, verbruik en zwermgedrag</li>
+                  <li>✓ Data zichtbaar in dezelfde app</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connectiviteit -->
+          <div>
+            <h3 class="font-display text-xl mb-4 text-slate-900">2. Verbinding — kies wat past</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div class="p-6 rounded-2xl bg-white border border-honey-200 shadow-lg">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">📶</span>
+                  <p class="text-sm text-forest-700 font-semibold">WiFi</p>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">Gratis</h4>
+                </div>
+                <p class="mt-4 text-sm text-slate-600">Gebruik je eigen WiFi‑netwerk. Handig wanneer er een stroomvoorziening bij de kast beschikbaar is.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Geen abonnementskosten</li>
+                  <li>✓ Ideaal bij kasten met stroom in de buurt</li>
+                </ul>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white border border-honey-200 shadow-lg">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">📡</span>
+                  <p class="text-sm text-honey-700 font-semibold">WiFi via MiFi</p>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">±€50</h4>
+                  <span class="text-sm text-slate-500">eenmalig MiFi</span>
+                </div>
+                <p class="mt-4 text-sm text-slate-600">Geen vast netwerk maar wel stroom? Plaats een MiFi (mobiele WiFi‑router, ±€50). Wij leveren voordelige data via SIM's met gedeelde bundels, zodat de kosten laag blijven.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Voordelige WiFi op locaties zonder netwerk</li>
+                  <li>✓ Gedeelde databundels houden de prijs laag</li>
+                  <li>✓ Meerdere kasten op één MiFi</li>
+                </ul>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white border border-honey-200 shadow-lg">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">🛰️</span>
+                  <p class="text-sm text-sky-700 font-semibold">NB‑IoT</p>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">±€10</h4>
+                  <span class="text-sm text-slate-500">per jaar</span>
+                </div>
+                <p class="mt-4 text-sm text-slate-600">Mobiele verbinding voor locaties zonder WiFi of stroom. Werkt zelfstandig op zonne‑energie.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Werkt overal met bereik</li>
+                  <li>✓ Geen eigen netwerk of stroom nodig</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Platform -->
+          <div>
+            <h3 class="font-display text-xl mb-4 text-slate-900">3. Platform — jaarlijks</h3>
+            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="p-6 rounded-2xl bg-white border border-honey-200 shadow-lg">
+                <p class="text-sm text-honey-700 font-semibold">Platformabonnement</p>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <h4 class="text-3xl font-bold text-slate-900">€25</h4>
+                  <span class="text-sm text-slate-500">per jaar</span>
+                </div>
+                <p class="mt-4 text-sm text-slate-600">Toegang tot het volledige platform en de imker‑app voor het beheer en de analyse van je kasten.</p>
+                <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                  <li>✓ Digitale kastregistratie</li>
+                  <li>✓ App om metingen te volgen</li>
+                  <li>✓ Vergelijken met andere kasten</li>
+                  <li>✓ Voorspellende modellen & alerts</li>
+                </ul>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-honey-100 border border-honey-200 shadow-lg flex flex-col justify-center">
+                <p class="text-sm text-honey-700 font-semibold">Rekenvoorbeeld</p>
+                <h4 class="mt-2 text-xl font-semibold text-slate-900">Zo bouw je je pakket op</h4>
+                <ul class="mt-4 space-y-2 text-sm text-slate-700">
+                  <li class="flex justify-between"><span>Hoofdapparaat (eerste 100)</span><span class="font-semibold">€100</span></li>
+                  <li class="flex justify-between"><span>Weegschaal (optioneel)</span><span class="font-semibold">+€100</span></li>
+                  <li class="flex justify-between"><span>WiFi of NB‑IoT</span><span class="font-semibold">€0 / ±€10 p/j</span></li>
+                  <li class="flex justify-between border-t border-honey-300 pt-2"><span>Platform</span><span class="font-semibold">€25 per jaar</span></li>
+                </ul>
+                <p class="mt-4 text-xs text-slate-500">Prijzen zijn indicatief. Neem contact op voor een pakket op maat.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="#contact" class="inline-flex items-center rounded-full px-5 py-3 bg-honey-500 text-white font-semibold shadow-lg shadow-amber-500/25 hover:bg-honey-600 transition">Doe mee</a>
+            <a href="#contact" class="inline-flex items-center rounded-full px-5 py-3 border border-slate-300 text-slate-700 hover:bg-white transition">Vraag een pakket op maat</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="stichting" class="py-16 md:py-20 bg-white border-y border-honey-200">
         <div class="max-w-6xl mx-auto px-4 mb-12">
           <div class="grid md:grid-cols-2 gap-8 items-center">
             <div class="relative flex justify-center order-2 md:order-1">
-              <div class="absolute inset-0 bg-emerald-400/20 blur-3xl rounded-full scale-75"></div>
-              <img src="images/vereniging.jpeg" alt="Imkers community" class="relative rounded-[40%] border-4 border-emerald-400/30 shadow-2xl shadow-emerald-400/20 w-72 h-72 object-cover hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-forest-500/15 blur-3xl rounded-full scale-75"></div>
+              <img src="images/vereniging.jpeg" alt="Imkers community" class="relative rounded-[40%] border-4 border-forest-500/25 shadow-2xl shadow-forest-500/15 w-72 h-72 object-cover hover:scale-105 transition-transform duration-500">
             </div>
             <div class="order-1 md:order-2">
-              <h2 class="font-display text-3xl mb-4">Onze community</h2>
-              <p class="text-slate-200/80 text-lg">Samen met imkers, onderzoekers en natuurliefhebbers bouwen we aan een betere toekomst voor bijen en biodiversiteit.</p>
+              <h2 class="font-display text-3xl mb-4 text-slate-900">Onze community</h2>
+              <p class="text-slate-600 text-lg">Samen met imkers, onderzoekers en natuurliefhebbers bouwen we aan een betere toekomst voor bijen en biodiversiteit.</p>
             </div>
           </div>
         </div>
         <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-start">
           <div class="space-y-4">
-            <h2 class="font-display text-3xl">Stichting Bijvangst</h2>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-sm text-slate-200/80">Basisgegevens</p>
-              <h3 class="mt-2 text-xl font-semibold">Naam en vestiging</h3>
-              <p class="mt-2 text-slate-100">Stichting Bijvangst · Den Haag</p>
+            <h2 class="font-display text-3xl text-slate-900">Stichting Bijvangst</h2>
+            <div class="p-5 rounded-2xl bg-honey-50 border border-honey-200">
+              <p class="text-sm text-slate-500">Basisgegevens</p>
+              <h3 class="mt-2 text-xl font-semibold text-slate-900">Naam en vestiging</h3>
+              <p class="mt-2 text-slate-700">Stichting Bijvangst · Den Haag</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <p class="text-sm text-slate-200/80">Doel</p>
-              <h3 class="text-xl font-semibold">Wat streven we na?</h3>
-              <p class="text-slate-100">Het versterken van duurzame bijenhouderij en biodiversiteit door imkers, wetenschappers, overheden en inwoners te betrekken en zo het bewustzijn over ons ecosysteem en de gevolgen van biodiversiteitsverlies te vergroten.</p>
+            <div class="p-5 rounded-2xl bg-honey-50 border border-honey-200 space-y-3">
+              <p class="text-sm text-slate-500">Doel</p>
+              <h3 class="text-xl font-semibold text-slate-900">Wat streven we na?</h3>
+              <p class="text-slate-700">Het versterken van duurzame bijenhouderij en biodiversiteit door imkers, wetenschappers, overheden en inwoners te betrekken en zo het bewustzijn over ons ecosysteem en de gevolgen van biodiversiteitsverlies te vergroten.</p>
             </div>
           </div>
 
           <div class="space-y-4">
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <p class="text-sm text-slate-200/80">Wijze waarop</p>
-              <p class="text-slate-100">Wij hebben sensorkastjes ontwikkeld die real-time data verzamelen in en rond de bijenkast. Met behulp van een AI-platform verrijken wij deze data tot betrouwbare en bruikbare inzichten. Via onze applicaties maken wij communicatie en interactie mogelijk tussen gebruikers en het AI-platform. Zo krijgen imkers en andere betrokkenen direct inzicht in de toestand en het gedrag van bijenvolken.</p>
-              <p class="text-slate-100">Daarnaast leveren onze onderzoeks- en onderwijsactiviteiten waardevolle kennis voor een brede doelgroep, waaronder imkers, burgers, onderzoekers en overheden. Op deze manier dragen wij bij aan beter begrip, bewustwording en onderbouwde besluitvorming rondom bijen en hun leefomgeving.</p>
+            <div class="p-5 rounded-2xl bg-honey-50 border border-honey-200 space-y-3">
+              <p class="text-sm text-slate-500">Wijze waarop</p>
+              <p class="text-slate-700">Wij hebben sensorkastjes ontwikkeld die real-time data verzamelen in en rond de bijenkast. Met behulp van een AI-platform verrijken wij deze data tot betrouwbare en bruikbare inzichten. Via onze applicaties maken wij communicatie en interactie mogelijk tussen gebruikers en het AI-platform. Zo krijgen imkers en andere betrokkenen direct inzicht in de toestand en het gedrag van bijenvolken.</p>
+              <p class="text-slate-700">Daarnaast leveren onze onderzoeks- en onderwijsactiviteiten waardevolle kennis voor een brede doelgroep, waaronder imkers, burgers, onderzoekers en overheden. Op deze manier dragen wij bij aan beter begrip, bewustwording en onderbouwde besluitvorming rondom bijen en hun leefomgeving.</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-sm text-slate-200/80">Belofte</p>
-              <ul class="mt-2 space-y-2 text-slate-100">
+            <div class="p-5 rounded-2xl bg-honey-50 border border-honey-200">
+              <p class="text-sm text-slate-500">Belofte</p>
+              <ul class="mt-2 space-y-2 text-slate-700">
                 <li>Transparante data, open waar het kan.</li>
                 <li>Privacy‑bewust voor gevoelige locaties.</li>
                 <li>Robuuste hardware, laagdrempelige prijzen.</li>
@@ -492,94 +567,95 @@
         </div>
       </section>
 
-      <section id="aanpak" class="py-16 md:py-20 bg-slate-900/70 border-y border-white/5">
+      <section id="aanpak" class="py-16 md:py-20">
         <div class="max-w-6xl mx-auto px-4">
           <div class="md:flex items-end justify-between gap-4">
             <div>
-              <h2 class="font-display text-3xl">Onze aanpak</h2>
-              <p class="text-slate-200/80">Van sensorkastje tot besluitvorming.</p>
+              <h2 class="font-display text-3xl text-slate-900">Onze aanpak</h2>
+              <p class="text-slate-600">Van sensorkast tot besluitvorming.</p>
             </div>
-            <a href="#contact" class="text-sm inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 hover:bg-white/15">Plan een intake</a>
+            <a href="#contact" class="text-sm inline-flex items-center gap-2 px-4 py-2 rounded-full bg-honey-100 border border-honey-200 text-honey-700 hover:bg-honey-200">Plan een intake</a>
           </div>
 
           <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-xs uppercase tracking-wide text-slate-200/70">1. Installatie</p>
-              <h3 class="mt-2 font-semibold text-white">Plaats sensorkastjes</h3>
-              <p class="mt-2 text-sm text-slate-200/80">Basestation + sensoren + power. Optioneel 4G voor directe uplink.</p>
+            <div class="p-5 rounded-2xl bg-white border border-honey-200 shadow-sm">
+              <p class="text-xs uppercase tracking-wide text-slate-500">1. Installatie</p>
+              <h3 class="mt-2 font-semibold text-slate-900">Plaats de sensorkast</h3>
+              <p class="mt-2 text-sm text-slate-600">Hoofdapparaat met solarnode in het deksel, optioneel de weegschaal erbij.</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-xs uppercase tracking-wide text-slate-200/70">2. Datastroom</p>
-              <h3 class="mt-2 font-semibold text-white">Realtime monitoring</h3>
-              <p class="mt-2 text-sm text-slate-200/80">Data komt binnen in het platform, gevalideerd en klaar om te delen.</p>
+            <div class="p-5 rounded-2xl bg-white border border-honey-200 shadow-sm">
+              <p class="text-xs uppercase tracking-wide text-slate-500">2. Datastroom</p>
+              <h3 class="mt-2 font-semibold text-slate-900">Realtime monitoring</h3>
+              <p class="mt-2 text-sm text-slate-600">Data komt via WiFi of NB‑IoT binnen, gevalideerd en klaar om te delen.</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-xs uppercase tracking-wide text-slate-200/70">3. Analyse</p>
-              <h3 class="mt-2 font-semibold text-white">AI‑inzichten</h3>
-              <p class="mt-2 text-sm text-slate-200/80">Patronen, alerts en rapportages voor imkers, onderzoekers en beleid.</p>
+            <div class="p-5 rounded-2xl bg-white border border-honey-200 shadow-sm">
+              <p class="text-xs uppercase tracking-wide text-slate-500">3. Analyse</p>
+              <h3 class="mt-2 font-semibold text-slate-900">AI‑inzichten</h3>
+              <p class="mt-2 text-sm text-slate-600">Patronen, alerts en rapportages voor imkers, onderzoekers en beleid.</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
-              <p class="text-xs uppercase tracking-wide text-slate-200/70">4. Actie</p>
-              <h3 class="mt-2 font-semibold text-white">Handelingsadvies</h3>
-              <p class="mt-2 text-sm text-slate-200/80">Concreet, toepasbaar en gedeeld met de community voor feedback.</p>
+            <div class="p-5 rounded-2xl bg-white border border-honey-200 shadow-sm">
+              <p class="text-xs uppercase tracking-wide text-slate-500">4. Actie</p>
+              <h3 class="mt-2 font-semibold text-slate-900">Handelingsadvies</h3>
+              <p class="mt-2 text-sm text-slate-600">Concreet, toepasbaar en gedeeld met de community voor feedback.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="py-16 md:py-20">
+      <section id="contact" class="py-16 md:py-20 bg-white border-t border-honey-200">
         <div class="max-w-5xl mx-auto px-4 grid lg:grid-cols-5 gap-10 items-start">
           <div class="lg:col-span-2 space-y-4">
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Contact</span>
-            <h2 class="font-display text-3xl">Plan een gesprek of demo</h2>
-            <p class="text-slate-200/80">Vertel kort je situatie, dan koppelen we hardware en abonnement aan jouw locatie. Binnen 48 uur reageren we.</p>
-            <div class="space-y-2 text-sm text-slate-200/80">
-              <p><span class="font-semibold text-white">E-mail:</span> info@bijvangst.eu</p>
-              <p><span class="font-semibold text-white">Locatie:</span> Den Haag</p>
+            <span class="inline-flex items-center gap-2 rounded-full bg-honey-100 border border-honey-200 px-3 py-1 text-xs font-semibold text-honey-700">Contact</span>
+            <h2 class="font-display text-3xl text-slate-900">Plan een gesprek of demo</h2>
+            <p class="text-slate-600">Vertel kort je situatie, dan koppelen we hardware en abonnement aan jouw locatie. Binnen 48 uur reageren we.</p>
+            <div class="space-y-2 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-900">E-mail:</span> info@bijvangst.eu</p>
+              <p><span class="font-semibold text-slate-900">Locatie:</span> Den Haag</p>
             </div>
           </div>
 
           <div class="lg:col-span-3">
-            <div class="p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10 shadow-xl">
+            <div class="p-6 md:p-8 rounded-2xl bg-honey-50 border border-honey-200 shadow-xl">
               <form class="grid gap-4" action="https://formspree.io/f/xpqwkbdr" method="POST">
                 <div class="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label class="text-sm text-slate-200" for="name">Naam</label>
-                    <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white placeholder:text-slate-300/50 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Je naam" />
+                    <label class="text-sm text-slate-700" for="name">Naam</label>
+                    <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-honey-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Je naam" />
                   </div>
                   <div>
-                    <label class="text-sm text-slate-200" for="org">Organisatie</label>
-                    <input id="org" name="organization" class="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white placeholder:text-slate-300/50 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Stichting / vereniging" />
+                    <label class="text-sm text-slate-700" for="org">Organisatie</label>
+                    <input id="org" name="organization" class="mt-1 w-full rounded-xl border border-honey-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Stichting / vereniging" />
                   </div>
                 </div>
 
                 <div>
-                  <label class="text-sm text-slate-200" for="email">E-mail</label>
-                  <input type="email" id="email" name="email" required class="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white placeholder:text-slate-300/50 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="jij@example.nl" />
+                  <label class="text-sm text-slate-700" for="email">E-mail</label>
+                  <input type="email" id="email" name="email" required class="mt-1 w-full rounded-xl border border-honey-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="jij@example.nl" />
                 </div>
 
                 <div>
-                  <label class="text-sm text-slate-200" for="interest">Waar ben je in geïnteresseerd?</label>
-                  <select id="interest" name="interest" class="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-honey-500">
-                    <option class="text-slate-900">Imker toepassing</option>
-                    <option class="text-slate-900">Onderzoek & onderwijs</option>
-                    <option class="text-slate-900">Overheid / monitoring</option>
-                    <option class="text-slate-900">4G connectiviteit</option>
+                  <label class="text-sm text-slate-700" for="interest">Waar ben je in geïnteresseerd?</label>
+                  <select id="interest" name="interest" class="mt-1 w-full rounded-xl border border-honey-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-honey-500">
+                    <option>Hoofdapparaat (sensorkast)</option>
+                    <option>Hoofdapparaat + weegschaal</option>
+                    <option>NB‑IoT connectiviteit</option>
+                    <option>Onderzoek & onderwijs</option>
+                    <option>Overheid / monitoring</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="text-sm text-slate-200" for="msg">Bericht</label>
-                  <textarea id="msg" name="message" rows="4" class="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-white placeholder:text-slate-300/50 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Vertel kort je use-case…"></textarea>
+                  <label class="text-sm text-slate-700" for="msg">Bericht</label>
+                  <textarea id="msg" name="message" rows="4" class="mt-1 w-full rounded-xl border border-honey-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-honey-500" placeholder="Vertel kort je use-case…"></textarea>
                 </div>
 
                 <input type="text" name="_gotcha" style="display: none !important;">
 
-                <label class="flex items-center gap-2 text-sm text-slate-200/80">
-                  <input type="checkbox" name="consent" required class="rounded border-white/30 bg-white/5" /> Ik ga akkoord met de privacyverklaring.
+                <label class="flex items-center gap-2 text-sm text-slate-600">
+                  <input type="checkbox" name="consent" required class="rounded border-honey-300 bg-white" /> Ik ga akkoord met de privacyverklaring.
                 </label>
 
-                <button class="inline-flex items-center justify-center rounded-full px-5 py-3 bg-honey-500 text-white font-semibold shadow-lg shadow-amber-500/30 hover:bg-honey-600 transition" type="submit">Verzenden</button>
+                <button class="inline-flex items-center justify-center rounded-full px-5 py-3 bg-honey-500 text-white font-semibold shadow-lg shadow-amber-500/25 hover:bg-honey-600 transition" type="submit">Verzenden</button>
               </form>
             </div>
           </div>
@@ -587,25 +663,26 @@
       </section>
     </main>
 
-    <footer class="py-10 border-t border-white/10 bg-slate-950/80 backdrop-blur">
+    <footer class="py-10 border-t border-honey-200 bg-honey-50/90 backdrop-blur">
       <div class="max-w-6xl mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-6 items-start text-sm text-slate-200/80">
+        <div class="grid md:grid-cols-3 gap-6 items-start text-sm text-slate-600">
           <div>
-            <div class="flex items-center gap-2 font-semibold text-white"><span class="text-2xl">🐝</span> Stichting Bijvangst</div>
+            <div class="flex items-center gap-2 font-semibold text-slate-900"><span class="text-2xl">🐝</span> Stichting Bijvangst</div>
             <p class="mt-2">Datagedreven inzicht in bijenkasten. Minder meten, meer leren.</p>
           </div>
           <div>
-            <h4 class="font-semibold text-white">Navigatie</h4>
+            <h4 class="font-semibold text-slate-900">Navigatie</h4>
             <ul class="mt-2 space-y-1">
               <li><a class="hover:underline" href="#home">Home</a></li>
               <li><a class="hover:underline" href="#meedoen">Meedoen</a></li>
+              <li><a class="hover:underline" href="#prijzen">Prijzen</a></li>
               <li><a class="hover:underline" href="#stichting">Stichting</a></li>
               <li><a class="hover:underline" href="#aanpak">Aanpak</a></li>
               <li><a class="hover:underline" href="#contact">Contact</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold text-white">Contact</h4>
+            <h4 class="font-semibold text-slate-900">Contact</h4>
             <ul class="mt-2 space-y-1">
               <li>E-mail: <a class="underline" href="mailto:info@bijvangst.eu">info@bijvangst.eu</a></li>
               <li>Gemeente: Den Haag</li>
@@ -618,8 +695,6 @@
       </div>
     </footer>
   </div>
-
-
 
   <script>
     const btn = document.getElementById('navBtn');
@@ -635,23 +710,19 @@
       tile.addEventListener('click', (e) => {
         e.stopPropagation();
         const wasExpanded = tile.classList.contains('expanded');
-        // Close all other expanded tiles
         allTiles.forEach(t => t.classList.remove('expanded'));
-        // Toggle current tile
         if (!wasExpanded) {
           tile.classList.add('expanded');
         }
       });
     });
 
-    // Click outside to close
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.hex-tile')) {
         allTiles.forEach(t => t.classList.remove('expanded'));
       }
     });
 
-    // Escape to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         allTiles.forEach(t => t.classList.remove('expanded'));
